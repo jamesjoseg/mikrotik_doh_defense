@@ -20,7 +20,7 @@ O projeto implementa **três camadas independentes** que se complementam. Se uma
 
 ### Camada 1 — Interceptar e Forçar DNS Local (Porta 53)
 
-Garantir que qualquer consulta DNS na porta 53 seja redirecionada para o DNS interno do MikroTik, impedindo que dispositivos configurem DNS externos manualmente (placa de rede).
+Garantir que qualquer consulta DNS na porta 53 seja redirecionada para o DNS interno do MikroTik, impedindo que dispositivos configurem DNS externos manualmente.
 
 Regras de `dstnat` no firewall interceptam pacotes destinados à porta 53 e redirecionam para a própria RB. Isso funciona tanto para IPv4 quanto para IPv6.
 
@@ -45,6 +45,7 @@ Quando o navegador tenta resolver o nome de um servidor DoH (ex: `cloudflare-dns
 O RouterOS v7 possui o recurso nativo `adlist` que baixa automaticamente uma lista de domínios bloqueados a cada 4 horas e cria entradas DNS estáticas apontando para endereços nulos.
 
 ```routeros
+/ip dns set allow-remote-requests=yes
 /ip dns adlist
 add url="https://raw.githubusercontent.com/dibdot/DoH-IP-blocklists/master/doh-domains_overall.txt" ssl-verify=no comment="Bloqueio DoH - dibdot"
 ```
@@ -147,6 +148,8 @@ Se retornar `0.0.0.0`, o redirect funcionou — o Google jamais responderia com 
 
 [![teste](shots/teste.png)](shots/teste.png)
 
+
+
 **No MikroTik:**
 ```routeros
 /ip firewall nat print stats
@@ -154,7 +157,6 @@ Se retornar `0.0.0.0`, o redirect funcionou — o Google jamais responderia com 
 Contadores de `packets` e `bytes` devem aumentar.
 
 [![nat](shots/nat.png)](shots/nat.png)
-
 
 ---
 
