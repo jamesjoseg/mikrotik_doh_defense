@@ -10,7 +10,7 @@ Este laboratório nasceu de uma necessidade real: em ambientes com filtragem de 
 
 Soluções endpoint como antivírus são válidas, mas limitam-se a dispositivos específicos e sistemas operacionais compatíveis. A abordagem de **controle no gateway de rede** garante proteção para **todos os dispositivos conectados**  incluindo celulares, TVs, IoT e visitantes.
 
-Este projeto foi desenvolvido em uma **hAP ac²** (RBD52G-5HacD2HnD) rodando **RouterOS v7.23.2**, utilizando a documentação oficial do MikroTik como referência primária (via NotebookLM).
+Este projeto foi desenvolvido em uma **hAP ac²** rodando **RouterOS v7.23.2**, utilizando a documentação oficial do MikroTik como referência.
 
 ---
 
@@ -145,8 +145,7 @@ nslookup cloudflare-dns.com 8.8.8.8
 ```
 Se retornar `0.0.0.0`, o redirect funcionou — o Google jamais responderia com IP nulo.
 
-shots/teste.png
-
+[![teste](shots/teste.png)](shots/teste.png)
 
 **No MikroTik:**
 ```routeros
