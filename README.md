@@ -20,9 +20,9 @@ O projeto implementa **três camadas independentes** que se complementam. Se uma
 
 ### Camada 1 — Interceptar e Forçar DNS Local (Porta 53)
 
-**Objetivo**: Garantir que qualquer consulta DNS na porta 53 seja redirecionada para o DNS interno do MikroTik, impedindo que dispositivos configurem DNS externos manualmente (placa de rede).
+Garantir que qualquer consulta DNS na porta 53 seja redirecionada para o DNS interno do MikroTik, impedindo que dispositivos configurem DNS externos manualmente (placa de rede).
 
-**Lógica:** Regras de `dstnat` no firewall interceptam pacotes destinados à porta 53 e redirecionam para a própria RB. Isso funciona tanto para IPv4 quanto para IPv6.
+Regras de `dstnat` no firewall interceptam pacotes destinados à porta 53 e redirecionam para a própria RB. Isso funciona tanto para IPv4 quanto para IPv6.
 
 ```routeros
 /ip firewall nat
@@ -34,15 +34,15 @@ add action=redirect chain=dstnat comment="FORCAR-DNS IPv6: Intercepta UDP" dst-p
 add action=redirect chain=dstnat comment="FORCAR-DNS IPv6: Intercepta TCP" dst-port=53 protocol=tcp to-ports=53
 ```
 
-**Como atua:** `chain=dstnat` (antes do roteamento). O pacote nunca sai pela WAN.
+Atua na `chain=dstnat` (antes do roteamento). O pacote nunca sai pela WAN.
 
 ---
 
 ### Camada 2 — Bloqueio de Domínios DoH via Adlist
 
-**Objetivo:** Quando o navegador tenta resolver o nome de um servidor DoH (ex: `cloudflare-dns.com`), o MikroTik responde com `0.0.0.0` (IPv4) ou `::` (IPv6), impedindo que o navegador descubra o IP real do servidor.
+Quando o navegador tenta resolver o nome de um servidor DoH (ex: `cloudflare-dns.com`), o MikroTik responde com `0.0.0.0` (IPv4) ou `::` (IPv6), impedindo que o navegador descubra o IP real do servidor.
 
-**Lógica:** O RouterOS v7 possui o recurso nativo `adlist` que baixa automaticamente uma lista de domínios bloqueados a cada 4 horas e cria entradas DNS estáticas apontando para endereços nulos.
+O RouterOS v7 possui o recurso nativo `adlist` que baixa automaticamente uma lista de domínios bloqueados a cada 4 horas e cria entradas DNS estáticas apontando para endereços nulos.
 
 ```routeros
 /ip dns adlist
@@ -60,9 +60,9 @@ add url="https://raw.githubusercontent.com/dibdot/DoH-IP-blocklists/master/doh-d
 
 ### Camada 3 — Bloqueio de IPs Hardcoded via Firewall (Portas 443 e 853)
 
-**Objetivo:** Navegadores trazem IPs de servidores DoH gravados de forma fixa no código-fonte (*hardcoded*). Esta camada rejeita conexões HTTPS (443) e DoT (853) diretas para esses IPs conhecidos.
+Navegadores trazem IPs de servidores DoH gravados de forma fixa no código-fonte (*hardcoded*). Esta camada rejeita conexões HTTPS (443) e DoT (853) diretas para esses IPs conhecidos.
 
-**Lógica:** Uma `address-list` agrupa os IPs dos principais provedores DoH/DoT. Regras na `chain=forward` analisam pacotes que atravessam o roteador (origem LAN → destino Internet) e rejeitam conexões destinadas a esses IPs nas portas 443 e 853.
+Uma `address-list` agrupa os IPs dos principais provedores DoH/DoT. Regras na `chain=forward` analisam pacotes que atravessam o roteador (origem LAN → destino Internet) e rejeitam conexões destinadas a esses IPs nas portas 443 e 853.
 
 #### IPv4
 
@@ -249,17 +249,10 @@ Para aplicar:
 - Lista de domínios DoH: [dibdot/DoH-IP-blocklists](https://github.com/dibdot/DoH-IP-blocklists)
 - Conceito de **Defense-in-Depth** aplicado a redes de pequeno porte
 
----
-
-## 🏠 Ambiente de Laboratório
-
-| Equipamento | Modelo | RouterOS |
-|-------------|--------|----------|
-| Roteador principal | MikroTik hAP ac² (RBD52G-5HacD2HnD) | v7.23.2 |
 
 ---
 
-## 🔒 Nota de Segurança
+## 🔒 Atenção 
 
 > **Nunca publique backups completos (`/export`) do seu MikroTik em repositórios públicos.** Eles contêm senhas PPPoE, tokens de bots, chaves privadas de VPN, senhas WiFi e outros dados sensíveis. Este repositório contém apenas as regras específicas do projeto.
 
