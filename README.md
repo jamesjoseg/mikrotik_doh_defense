@@ -154,7 +154,8 @@ shots/teste.png
 ```
 Contadores de `packets` e `bytes` devem aumentar.
 
-shots/nat.png
+[![nat](shots/nat.png)](shots/nat.png)
+
 
 ---
 
@@ -177,7 +178,8 @@ Endereço: 0.0.0.0
 ```
 A coluna `match-count` deve ter aumentado.
 
-shots/adlist.png
+[![Adlist](shots/adlist.png)](shots/adlist.png)
+
 
 ---
 
@@ -191,8 +193,10 @@ No navegador (Chrome/Edge/Firefox), ative o **DNS Seguro (DoH)** e selecione um 
 ```routeros
 /ip firewall filter print stats where comment~"Rejeita"
 ```
-shots/filter.png
-shots/firefox-reject.png
+[![filter](shots/filter.png)](shots/filter.png)
+
+[![firefox](shots/firefox-reject.png)](shots/firefox-reject.png)
+
 
 **Comportamento do navegador:**
 - **Modo automático / Padrão do SO:** Fallback rápido e transparente. O usuário nem percebe.
