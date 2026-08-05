@@ -206,7 +206,7 @@ No navegador (Chrome/Edge/Firefox), ative o **DNS Seguro (DoH)** e selecione um 
 
 ---
 
-## ⚠️ Troubleshooting
+## ⚠️ Soluções de problemas 
 
 ### `adlist` mostra `name-count=0`
 
