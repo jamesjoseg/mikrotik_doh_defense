@@ -16,7 +16,7 @@ Este projeto foi desenvolvido em uma **hAP ac²** rodando **RouterOS v7.23.2**, 
 
 ## 🏗️ Arquitetura de Defesa em Camadas
 
-O projeto implementa três camadas independentes que se complementam. Se uma camada não bloquear a evasão, outra poderá bloqueá-la.
+O projeto implementa três camadas independentes que se complementam. Se uma camada não bloquear a evasão, a outra poderá bloqueá-la.
 
 ### Camada 1 — Interceptar e Forçar DNS Local (Porta 53)
 
